@@ -9,12 +9,7 @@ import { AuthService } from '../../../services/auth.service';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
-  constructor(private authService:AuthService){}
+  constructor(){}
   ngOnInit(): void {
-    this.authService.login({userName:"admin@admin.com",password:"1234"}).subscribe(res=>{
-      console.log(res);
-    },(error)=>{
-      console.log(error);
-    })
   }
 }

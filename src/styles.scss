@@ -2,3 +2,6 @@
 @import url('assets/admin/css/bootstrap.min.css');
 @import url('assets/admin/css/icons.min.css');
 @import url('assets/admin/css/app.min.css');
+.toast-container {
+    z-index: 100000;
+}

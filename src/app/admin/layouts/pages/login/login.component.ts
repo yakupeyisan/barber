@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy{
     if(!this.loginForm.valid) return;
     let loginDto:UserForLoginDto=Object.assign({},this.loginForm.value);
     this.authService.login(loginDto).subscribe(result=>{
-      alert(result.data);
+      localStorage.setItem("token",result.data);
       this.router.navigateByUrl("/admin/home")
     },error=>{
       console.log(error);

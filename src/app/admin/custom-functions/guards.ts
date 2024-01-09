@@ -1,25 +1,30 @@
 import { inject } from "@angular/core";
 import { CanActivateFn, Router, UrlTree } from "@angular/router";
-import { Observable } from "rxjs";
+import { Observable, tap } from "rxjs";
+import { AuthService } from "../../services/auth.service";
 
 export const isLoginGuard:CanActivateFn= (route,state):Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree =>{
-    console.log(route.url); 
-    return true;
-    const router = inject(Router);
-    let isLogin=Math.round(Math.random());
-    alert(isLogin);
-    if(isLogin==0){
+    let router = inject(Router);
+    let authService = inject(AuthService);
+    if (typeof localStorage == 'undefined') return false;
+    let hasToken=localStorage.getItem("token")!=null;
+    if(!hasToken){
         router.navigateByUrl('/admin/login');
     }
-    return isLogin==1;
+    return authService.isLogin().pipe(tap({
+        error:(err)=>{ 
+            authService.logout();
+        }
+    }));
 }
 
 export const isLogoutGuard:CanActivateFn= (route,state):Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree =>{
-    return true;
-    const router = inject(Router);
-    let isLogin=Math.round(Math.random());
-    if(isLogin==0){
-        router.navigateByUrl('/admin');
+
+    let router = inject(Router);
+    if (typeof localStorage == 'undefined') return false;
+    let hasNotToken=localStorage.getItem("token")==null;
+    if(!hasNotToken){
+        router.navigateByUrl('/admin/home');
     }
-    return isLogin==1;
+    return hasNotToken;
 }
