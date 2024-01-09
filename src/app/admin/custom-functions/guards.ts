@@ -15,7 +15,7 @@ export const isLoginGuard:CanActivateFn= (route,state):Observable<boolean | UrlT
 }
 
 export const isLogoutGuard:CanActivateFn= (route,state):Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree =>{
-    
+    return true;
     const router = inject(Router);
     let isLogin=Math.round(Math.random());
     if(isLogin==0){

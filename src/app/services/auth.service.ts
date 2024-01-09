@@ -8,7 +8,7 @@ export class AuthService{
     
     constructor(private httpClient:HttpClient){}
 
-    login(userForLoginDto:UserForLoginDto){
-        return this.httpClient.post<Observable<DataResponse<string>>>("http://localhost/auth/login",userForLoginDto)
+    login(userForLoginDto:UserForLoginDto):Observable<DataResponse<string>>{
+        return this.httpClient.post<DataResponse<string>>("http://api.bysalon.com.tr/auth/login",userForLoginDto)
     }
 }

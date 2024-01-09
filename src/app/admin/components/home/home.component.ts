@@ -13,6 +13,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.authService.login({userName:"admin@admin.com",password:"1234"}).subscribe(res=>{
       console.log(res);
+    },(error)=>{
+      console.log(error);
     })
   }
 }
