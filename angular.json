@@ -35,9 +35,11 @@
             ],
             "scripts": [
               "src/assets/admin/js/jquery/jquery.min.js",
+              "src/assets/admin/js/bootstrap/js/bootstrap.bundle.min.js",
               "src/assets/admin/js/metismenu/metisMenu.min.js",
               "src/assets/admin/js/simplebar/simplebar.min.js",
               "src/assets/admin/js/node-waves/waves.min.js",
+              "src/assets/admin/js/waypoints/lib/jquery.waypoints.min.js",
               "src/assets/admin/js/jquery.counterup/jquery.counterup.min.js",
               "src/assets/admin/js/app.js"
             ],
