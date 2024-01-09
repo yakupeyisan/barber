@@ -1,4 +1,5 @@
 import { BaseTimeStampModel } from "./base/base-time-stamp-model";
+import { Service } from "./service";
 
 export interface Appointment extends BaseTimeStampModel<number>{
     userId:number;
@@ -9,3 +10,8 @@ export interface Appointment extends BaseTimeStampModel<number>{
     endDate:string|null;
     isCompleted:boolean|null;
 } 
+
+export interface AppointmentService extends Appointment{
+    services:Service[];
+    amount:number|null;
+}
