@@ -8,6 +8,7 @@ import { isLoginGuard, isLogoutGuard } from './admin/custom-functions/guards';
 import { ForbiddenComponent } from './admin/layouts/pages/forbidden/forbidden.component';
 import { InternalServerErrorComponent } from './admin/layouts/pages/internal-server-error/internal-server-error.component';
 import { NotFoundComponent } from './admin/layouts/pages/not-found/not-found.component';
+import { UserSetCredentialComponent } from './admin/components/user/user-set-credential/user-set-credential.component';
 
 export const routes: Routes = [
     {path:'',component:HomeComponent},
@@ -18,6 +19,7 @@ export const routes: Routes = [
     {path:'admin',component:AdminComponent, canActivate:[isLoginGuard] ,children:[
         {path:'',component:AdminHomeComponent},
         {path:'home',component:AdminHomeComponent},
-        {path:'users',component:UserComponent}
+        {path:'users',component:UserComponent},
+        {path:'users/set-credentials/:userId',component:UserSetCredentialComponent},
     ]}
 ];

@@ -49,6 +49,7 @@ export const routePageInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown
         return next(req).pipe(tap({
             error:(err)=>{
                 if(err.status==401){
+                    authService.logout();
                     router.navigateByUrl("/admin/login");
                 }
                 else if(err.status==403){

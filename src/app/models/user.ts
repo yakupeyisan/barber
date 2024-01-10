@@ -6,7 +6,7 @@ import { Leave } from "./leave";
 import { UserWorkingRange } from "./user-working-range";
 
 export interface User extends BaseTimeStampModel<number>{
-    imageUrl:string;
+    imageUrl:string|null;
     firstName:string;
     lastName:string;
     email:string;
