@@ -38,3 +38,7 @@ export interface UserWithWorkingRangeAndClaim extends User{
     workingRanges:UserWorkingRange[]
     claims:Claim[]
 }
+export interface UserSetClaim{
+    userId:number;
+    claimId:number;
+}

@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { UserForLoginDto } from "../dtos/user-for-login-dto";
 import { Observable } from "rxjs";
 import { DataResponse } from "../models/responses";
-import { User, UserWithClaim } from "../models/user";
+import { User, UserSetClaim, UserWithClaim } from "../models/user";
 import { environment } from "../environments/environment";
 import { UserForUpdateDto } from "../dtos/user-for-update-dto";
 import { UserForCreateDto } from "../dtos/user-for-create-dto";
@@ -29,5 +29,11 @@ export class UserService{
     }
     deleteById(userId:number):Observable<Response>{
         return this.httpClient.delete<Response>(environment.getApiUrl("/users/delete-by-id/"+userId));
+    }
+    addClaim(userSetClaim:UserSetClaim):Observable<Response>{
+        return this.httpClient.post<Response>(environment.getApiUrl('/users/add-claim'),userSetClaim);
+    }
+    removeClaim(userSetClaim:UserSetClaim):Observable<Response>{
+        return this.httpClient.post<Response>(environment.getApiUrl('/users/remove-claim'),userSetClaim);
     }
 }

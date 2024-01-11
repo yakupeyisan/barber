@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User, UserWithClaim } from '../../../../models/user';
+import { User, UserSetClaim, UserWithClaim } from '../../../../models/user';
 import { UserService } from '../../../../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { ClaimService } from '../../../../services/claim.service';
@@ -44,11 +44,19 @@ export class UserSetCredentialComponent implements OnInit {
     return this.userWithClaim?.claims?.find(x=>x.id==claim.id)!==undefined
   }
   changeSwitch(claim:Claim){
+    let userSetClaim:UserSetClaim={
+      userId:this.userWithClaim.id,
+      claimId:claim.id
+    }
     if(this.checked(claim)){
-      let claimIndex=this.userWithClaim.claims.findIndex(x=>x.id==claim.id);
-      this.userWithClaim.claims.splice(claimIndex,1);
+      this.userService.removeClaim(userSetClaim).subscribe(result=>{
+        let claimIndex=this.userWithClaim.claims.findIndex(x=>x.id==claim.id);
+        this.userWithClaim.claims.splice(claimIndex,1);
+      })
     }else{
-      this.userWithClaim.claims.push(claim)
+      this.userService.addClaim(userSetClaim).subscribe(result=>{
+        this.userWithClaim.claims.push(claim)
+      })
     }
   }
 }
