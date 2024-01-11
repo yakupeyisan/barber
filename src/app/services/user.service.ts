@@ -3,10 +3,11 @@ import { Injectable } from "@angular/core";
 import { UserForLoginDto } from "../dtos/user-for-login-dto";
 import { Observable } from "rxjs";
 import { DataResponse } from "../models/responses";
-import { User, UserSetClaim, UserWithClaim } from "../models/user";
+import { User, UserSetClaim, UserWithClaim, UserWithWorkingRanges } from "../models/user";
 import { environment } from "../environments/environment";
 import { UserForUpdateDto } from "../dtos/user-for-update-dto";
 import { UserForCreateDto } from "../dtos/user-for-create-dto";
+import { UserWorkingRange } from "../models/user-working-range";
 @Injectable({providedIn:'root'})
 export class UserService{
     
@@ -35,5 +36,18 @@ export class UserService{
     }
     removeClaim(userSetClaim:UserSetClaim):Observable<Response>{
         return this.httpClient.post<Response>(environment.getApiUrl('/users/remove-claim'),userSetClaim);
+    }
+    getByIdWithWorkingRanges(userId:number):Observable<DataResponse<UserWithWorkingRanges>>{
+        return this.httpClient.get<DataResponse<UserWithWorkingRanges>>(environment.getApiUrl('/users/get-by-id-with-working-ranges/'+userId));
+    }
+    addWorkingRange(userWorkingRange:UserWorkingRange):Observable<Response>{
+        return this.httpClient.post<Response>(environment.getApiUrl('/users/add-working-range'),userWorkingRange)
+    }
+    removeWorkingRangeById(userWorkingRangeId:number):Observable<Response>{
+        return this.httpClient.get<Response>(environment.getApiUrl('/users/remove-working-range/'+userWorkingRangeId))
+        
+    }
+    setWorkingRange(userWorkingRange:UserWorkingRange):Observable<Response>{
+        return this.httpClient.post<Response>(environment.getApiUrl('/users/set-working-range'),userWorkingRange)
     }
 }

@@ -2,11 +2,11 @@
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0">User Page</h4>
+            <h4 class="mb-0">User Working Ranges Page</h4>
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Utility</a></li>
-                    <li class="breadcrumb-item active">User Page</li>
+                    <li class="breadcrumb-item active">User Working Ranges Page</li>
                 </ol>
             </div>
             
@@ -16,8 +16,8 @@
                 <div class="card">
                     <div class="card-body">
                         <button class="btn btn-icon"
-                        data-bs-toggle="modal" (click)="showAddModal()" data-bs-target=".create-modal"
-                        ><span>Create New User</span></button>
+                        data-bs-toggle="modal" (click)="showAddModal()" data-bs-target=".add-working-range-modal"
+                        ><span>Create New Working Range</span></button>
                         <!-- <table datatable [dtOptions]="dtOptions" class="table table-striped table-bordered nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;"> -->
                         <div class="table-responsive">
 
@@ -25,27 +25,23 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Image Url</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Email</th>
+                                        <th>Day</th>
+                                        <th>Start Time</th>
+                                        <th>End Time</th>
                                         <th>Operaions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let user of users">
-                                        <td>{{user.id}}</td>
-                                        <td><img [src]="(isImage(user.imageUrl)?user.imageUrl:'/assets/images/avatar.png')" width="50" height="50"></td>
-                                        <td>{{user.firstName}}</td>
-                                        <td>{{user.lastName}}</td>
-                                        <td>{{user.email}}</td>
+                                    <tr *ngFor="let workingRange of userWithWorkingRanges?.workingRanges">
+                                        <td>{{workingRange.id}}</td>
+                                        <td>{{days[workingRange.dayOfWeek??-1]}}</td>
+                                        <td>{{workingRange.startTime}}</td>
+                                        <td>{{workingRange.endTime}}</td>
                                         <td>
                                             <button class="btn btn-icon"
-                                            data-bs-toggle="modal" (click)="showEditModal(user)" data-bs-target=".edit-modal"
+                                            data-bs-toggle="modal" (click)="showEditModal(workingRange)" data-bs-target=".update-working-range-modal"
                                             ><span>Edit</span></button>
-                                            <button class="btn btn-icon" (click)="deleteUserById(user.id)"><span>Delete</span></button>
-                                            <button class="btn btn-icon" [routerLink]="'/admin/users/set-credentials/'+user.id"><span>Set Credentials</span></button>
-                                            <button class="btn btn-icon" [routerLink]="'/admin/users/list-working-ranges/'+user.id"><span>Set Working Ranges</span></button>
+                                            <button class="btn btn-icon" (click)="deleteWorkingRangeById(workingRange.id)"><span>Delete</span></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -58,6 +54,5 @@
     </div>
 </div>
 <!-- end page title -->
-
-<app-user-add (onLoad)="getList()"></app-user-add>
-<app-user-update (onLoad)="getList()"></app-user-update>
+<app-user-working-range-add (onLoad)="getUserWithWorkingRangesById(userWithWorkingRanges?.id??0)"></app-user-working-range-add>
+<app-user-working-range-update (onLoad)="getUserWithWorkingRangesById(userWithWorkingRanges?.id??0)"></app-user-working-range-update>

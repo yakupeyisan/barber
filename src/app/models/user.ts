@@ -14,7 +14,7 @@ export interface User extends BaseTimeStampModel<number>{
 export interface UserWithClaim extends User{
     claims:Claim[]
 }
-export interface UserWithWorkingRange extends User{
+export interface UserWithWorkingRanges extends User{
     workingRanges:UserWorkingRange[]
 }
 export interface UserWithLeave extends User{
