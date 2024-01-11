@@ -8,11 +8,11 @@
                     <h4>Update User</h4>
                 </div>
                 <div class="card-body" *ngIf="updateForm">
+                    <div class="mb-3">
+                        <label class="form-label" for="image-url-input">Image Url</label>
+                        <input type="file" class="form-control" accept="image/*" (change)="onFileChange($event)" id="image-url-input">
+                    </div>
                     <form  [formGroup]="updateForm" (ngSubmit)="onSubmit()">
-                        <div class="mb-3">
-                            <label class="form-label" for="image-url-input">Image Url</label>
-                            <input type="text" class="form-control" formControlName="imageUrl" id="image-url-input">
-                        </div>
                         <div class="mb-3">
                             <label class="form-label" for="first-name-input">First Name</label>
                             <input type="text" class="form-control" formControlName="firstName" id="first-name-input">

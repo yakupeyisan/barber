@@ -15,6 +15,7 @@ import { UserService } from '../../../../services/user.service';
 })
 export class UserAddComponent{
     createForm!:FormGroup
+    fileBase64:string=""
     @Output() onLoad:EventEmitter<unknown>=new EventEmitter();
     constructor(
       private formBuilder:FormBuilder,
@@ -23,7 +24,6 @@ export class UserAddComponent{
 
     createCreateForm(){
       this.createForm=this.formBuilder.group({
-        imageUrl:['',Validators.required],
         firstName:['',Validators.required],
         lastName:['',Validators.required],
         email:['',Validators.required],
@@ -35,13 +35,23 @@ export class UserAddComponent{
         this.toastrService.warning("Please check the form.","Warning");
         return;
       }
-      let userForCreateDto:UserForCreateDto=Object.assign({},this.createForm.value);
+      let userForCreateDto:UserForCreateDto=Object.assign({imageUrl:this.fileBase64},this.createForm.value);
       this.userService.create(userForCreateDto).subscribe(result=>{
         if(typeof document ==undefined) return;
         document.querySelector(".create-modal")?.classList.toggle("show");
         document.querySelector(".modal-backdrop")?.classList.toggle("show");
         this.onLoad.emit();
       })
+    }
+    onFileChange(event:any){
+      let file = event.target.files[0];
+      if (file) {
+        let fileReader = new FileReader();
+        fileReader.onloadend=()=>{
+          this.fileBase64=fileReader.result as string;
+        }
+        fileReader.readAsDataURL(file)
+      }
     }
 
 }
