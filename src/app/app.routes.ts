@@ -14,6 +14,7 @@ import { ServiceComponent } from './admin/components/service/service.component';
 import { CategoryService } from './services/category.service';
 import { CategoryComponent } from './admin/components/category/category.component';
 import { ProductComponent } from './admin/components/product/product.component';
+import { PhotoComponent } from './admin/components/photo/photo.component';
 
 export const routes: Routes = [
     {path:'',component:HomeComponent},
@@ -32,5 +33,6 @@ export const routes: Routes = [
         {path:'services',component:ServiceComponent},
         {path:'categories',component:CategoryComponent},
         {path:'products',component:ProductComponent},
+        {path:'gellery',component:PhotoComponent},
     ]}
 ];
