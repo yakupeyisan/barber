@@ -1,0 +1,25 @@
+
+<!-- Update Modal example -->
+<div class="modal fade edit-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="card shadow-none border-0 p-3 pb-0">
+                <div class="card-title">
+                    <h4>Update Category</h4>
+                </div>
+                <div class="card-body" *ngIf="updateForm">
+                    <form  [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+                        <div class="mb-3">
+                            <label class="form-label" for="name-input">Name</label>
+                            <input type="text" class="form-control" formControlName="name" id="name-input">
+                        </div>
+                        <div class="">
+                            <button class="btn btn-warning d-block ms-auto">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

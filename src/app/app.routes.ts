@@ -10,6 +10,10 @@ import { InternalServerErrorComponent } from './admin/layouts/pages/internal-ser
 import { NotFoundComponent } from './admin/layouts/pages/not-found/not-found.component';
 import { UserSetCredentialComponent } from './admin/components/user/user-set-credential/user-set-credential.component';
 import { UserListWorkingRangeComponent } from './admin/components/user/user-list-working-range/user-list-working-range.component';
+import { ServiceComponent } from './admin/components/service/service.component';
+import { CategoryService } from './services/category.service';
+import { CategoryComponent } from './admin/components/category/category.component';
+import { ProductComponent } from './admin/components/product/product.component';
 
 export const routes: Routes = [
     {path:'',component:HomeComponent},
@@ -20,8 +24,13 @@ export const routes: Routes = [
     {path:'admin',component:AdminComponent, canActivate:[isLoginGuard] ,children:[
         {path:'',component:AdminHomeComponent},
         {path:'home',component:AdminHomeComponent},
-        {path:'users',component:UserComponent},
-        {path:'users/set-credentials/:userId',component:UserSetCredentialComponent},
-        {path:'users/list-working-ranges/:userId',component:UserListWorkingRangeComponent},
+        {path:'users',children:[
+            {path:'',component:UserComponent},
+            {path:'set-credentials/:userId',component:UserSetCredentialComponent},
+            {path:'list-working-ranges/:userId',component:UserListWorkingRangeComponent},
+        ]},
+        {path:'services',component:ServiceComponent},
+        {path:'categories',component:CategoryComponent},
+        {path:'products',component:ProductComponent},
     ]}
 ];
