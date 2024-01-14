@@ -9,20 +9,63 @@
                     <li class="breadcrumb-item active">Photo Page</li>
                 </ol>
             </div>
-            
+
         </div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <ngx-dropzone (change)="onSelect($event)">
-                            <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
-                            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                      <div class="row">
+                        <div class="col square-switch">
+                            <span class="pe-3">Show Gallery</span>
+                            <input type="checkbox" id="square-switch-for-gallery" switch="none" [(ngModel)]="isShowGallery"/>
+                            <label for="square-switch-for-gallery" >{{(isShowGallery?'On':'Off')}}</label>
+                        </div>
+                        <div class="col square-switch">
+                            <span class="pe-3">Show Slider</span>
+                            <input type="checkbox" id="square-switch-for-slider" switch="none" [(ngModel)]="isShowSlider"/>
+                            <label for="square-switch-for-slider" >{{(isShowSlider?'On':'Off')}}</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <ngx-dropzone
+                          (change)="onSelect($event)"
+                          accept="image/jpeg,image/jpg,image/png,image/gif">
+                            <ngx-dropzone-label>Click to choose photos or drag and drop photos</ngx-dropzone-label>
+                            <ngx-dropzone-preview  ngProjectAs="ngx-dropzone-preview" *ngFor="let file of files" [file]="file">
+                                <ngx-dropzone-label>{{ file.name }}</ngx-dropzone-label>
                             </ngx-dropzone-preview>
                         </ngx-dropzone>
+                      </div>
                     </div>
                 </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="row">
+              <div class="col-xl-4 col-sm-6" *ngFor="let photo of photos">
+                <div class="card pt-3">
+                    <img [src]="photo.mediumUrl" class="mx-auto d-block" style="height: 200px; width: 90%; object-fit: cover;">
+                    <div class="text-center product-content p-4">
+                      <div class="row">
+                        <div class="col square-switch">
+                            <span class="pe-3">Show Gallery</span>
+                            <input type="checkbox" [id]="'square-switch-for-gallery-'+photo.id" switch="none" [(ngModel)]="photo.isShowGallery"/>
+                            <label [for]="'square-switch-for-gallery-'+photo.id" >{{(photo.isShowGallery?'On':'Off')}}</label>
+                        </div>
+                        <div class="col square-switch">
+                            <span class="pe-3">Show Slider</span>
+                            <input type="checkbox" [id]="'square-switch-for-slider-'+photo.id" switch="none" [(ngModel)]="photo.isShowSlider"/>
+                            <label [for]="'square-switch-for-slider-'+photo.id" >{{(photo.isShowSlider?'On':'Off')}}</label>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
             </div>
         </div>
     </div>

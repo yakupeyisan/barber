@@ -9,13 +9,17 @@ export abstract class BaseService<T>{
     path:string=''
     constructor(private httpClient:HttpClient){}
 
+    get getHttpClient():HttpClient{
+      return this.httpClient;
+    }
+
     getAll():Observable<DataResponse<T[]>>{
         return this.httpClient.get<DataResponse<T[]>>(environment.getApiUrl(`/${this.path}/get-all`))
     }
     getById(id:number):Observable<DataResponse<T>>{
         return this.httpClient.get<DataResponse<T>>(environment.getApiUrl(`/${this.path}/get-by-id/`+id));
     }
-    create(entity:T):Observable<Response>{
+    create(entity:T|any):Observable<Response>{
         return this.httpClient.post<Response>(environment.getApiUrl(`/${this.path}/create`),entity);
     }
     update(entity:T):Observable<Response>{

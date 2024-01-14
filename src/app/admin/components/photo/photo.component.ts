@@ -4,27 +4,52 @@ import { Photo } from '../../../models/photo';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { FormsModule } from '@angular/forms';
+import { ImageCreateDto } from '../../../dtos/image-create-dto';
+
 @Component({
   selector: 'app-photo',
   standalone: true,
-  imports: [CommonModule,RouterLink,NgxDropzoneModule],
+  imports: [CommonModule,RouterLink,NgxDropzoneModule,FormsModule],
   templateUrl: './photo.component.html',
   styleUrl: './photo.component.scss'
 })
 export class PhotoComponent implements OnInit {
   photos:Photo[]=[]
+  isShowGallery:boolean=false;
+  isShowSlider:boolean=false;
   files: File[] = [];
+  removedCount=0;
 
   constructor(private photoService:PhotoService){}
   onSelect(event:any) {
-    console.log(event);
-    this.files.push(...event.addedFiles);
+    this.removedCount=0;
+    let files:File[]=event.addedFiles;
+    files.forEach(file=>{
+      let fileReader=new FileReader();
+      fileReader.onloadend=()=>{
+        let base64=fileReader.result as string;
+        let index=this.files.length;
+        this.files.push(file);
+        let imageCreateDto:ImageCreateDto={
+          imageBase64:base64,
+          isResize:true,
+          isShowGallery:this.isShowGallery,
+          isShowSlider:this.isShowSlider
+        }
+        this.photoService.create(imageCreateDto).subscribe(result=>{
+          this.files.splice(index-this.removedCount, 1);
+          this.removedCount++
+          if(files.length==this.removedCount){
+            this.getList();
+          }
+        })
+
+      };
+      fileReader.readAsDataURL(file);
+    })
   }
 
-  onRemove(event:any) {
-    console.log(event);
-    this.files.splice(this.files.indexOf(event), 1);
-  }
   ngOnInit(): void {
     this.getList();
   }
